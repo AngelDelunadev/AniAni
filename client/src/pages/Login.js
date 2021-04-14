@@ -27,7 +27,7 @@ export default function Login() {
         .then(res => res.json())
         .then(data => {
             if(data.error){
-                alert(data.error)
+                console.log(data.error)
             }
             else{
                 dispatch(setUser(data))
@@ -51,6 +51,7 @@ export default function Login() {
                     <Row>
                         <Col></Col>
                         <Col xs={6}>
+                            <h1>Login</h1>
                             <Form.Group >
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control type="text" placeholder="Enter Username" 

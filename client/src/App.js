@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, FormControl, Nav, Navbar,Button } from 'react-bootstrap';
+import { Form, FormControl, Nav, Navbar,Button} from 'react-bootstrap';
 import { Link,Route, Switch, useHistory } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -18,7 +18,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          alert(data.success);
+          // alert(data.success);
           dispatch(setUser(null));
         }
       });
