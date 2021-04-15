@@ -13,9 +13,10 @@ function App() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [userStatus, setUserStatus] = useState('LOADING');
+
   const logout = () => {
     fetch('/api/v1/users/logout')
-      .then((res) => res.json())
+      .then((res) => res.json()) 
       .then((data) => {
         if (data.success) {
           // alert(data.success);
@@ -34,10 +35,14 @@ function App() {
       });
   }, [dispatch]);
 
+  
+
+  
+
   return (
     <div className="App">
       <Navbar bg="dark" variant="dark" className="justify-content-between">
-        <Navbar.Brand  as= {Link}to="/">Navbar</Navbar.Brand>
+        <Navbar.Brand  as= {Link}to="/" id = "home">AniAni</Navbar.Brand>
         <Nav >
           {/* <Nav.Link href="#home">Home</Nav.Link>
           <Nav.Link href="#features">Features</Nav.Link>
@@ -64,7 +69,7 @@ function App() {
       {userStatus === 'CHECKED' && (
       <Switch>
         <Route path= "/" exact>
-          <Home/>
+          <Home />
         </Route>
         <Route path= "/login">
           <Login/>
