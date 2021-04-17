@@ -1,11 +1,12 @@
 .App {
   text-align: center;
+  
 }
 
-#home{
-  font-size: 25px;
+.twice{
+  /* font-size: 25px; */
   background-color:#ff5fa2;
-  background-image: linear-gradient(45deg, 	#ff5fa2,#fccfa6);
+  background-image: linear-gradient(45deg, 	#ff5fa2,#fccfa6) !important;
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -30,7 +31,7 @@
     transition: .3s ease-in-out;
 }
 
-.card{
+.card2{
   display: flex;
   flex-direction: column;
   margin-left: 12px;
@@ -42,6 +43,7 @@
   border-radius: 8px;
   color: white;
   text-decoration: none;
+  background-color:black  !important;
 }
 
 .card-image{
@@ -98,7 +100,7 @@
     text-decoration: none;
 }
 
-.card, button {
+.card2, button {
   -webkit-user-select: none;
   -webkit-user-drag: none;
 }
@@ -107,12 +109,12 @@ div{
   display: block;
 }
 
-.card:hover{
+.card2:hover{
   box-shadow:0 0 12px rgba(0,0,0,.5)
 }
-.card:hover .card-image{transform:scale(1)}
+.card2:hover .card-image{transform:scale(1)}
 
-.card:hover .card-content{
+.card2:hover .card-content{
   -webkit-backdrop-filter:blur(2px);
   backdrop-filter:blur(2px);
   opacity:1;
@@ -122,5 +124,42 @@ div{
 }
 
 .line{
-  border: 1px solid black;
+  border: 2px  solid #fccfa6;
+  
+  /* background-image: linear-gradient(to bottom right, red, yellow); */
+
 }
+
+.App{
+  background-color: black;
+  color: white;
+}
+
+#aniCard{
+  
+  background-color:black;
+  border-style: solid;
+  border-color: #fccfa6;
+}
+
+.aniBio{
+  font-size: 20px;
+  border-style: solid;
+  border-color: #fccfa6;
+  
+}
+.aniJumbo{
+  height: 100%;
+  background-color: black !important;
+  border-style: solid;
+  border-color: #fccfa6;
+}
+.aniTable{
+  height: 100%;
+}
+
+
+
+
+
+

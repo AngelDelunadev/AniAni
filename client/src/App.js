@@ -8,11 +8,16 @@ import Register from './pages/Register';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { setUser } from './redux/actions';
+import AnimeSingle from './pages/AnimeSingle';
+import ResultsAnime from './pages/ResultsAnime';
 function App() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const [userStatus, setUserStatus] = useState('LOADING');
+  const [form, setForm] = useState({
+    search: "",
+})
 
   const logout = () => {
     fetch('/api/v1/users/logout')
@@ -36,20 +41,38 @@ function App() {
   }, [dispatch]);
 
   
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('ran')
+    history.push(`/search/${form.search}`)
+    setForm("")
+  }
+
+  const handleChange = (e) => {
+    setForm({
+        ...form,
+        [e.target.name]:e.target.value
+    })
+}
+  
 
   
 
   return (
     <div className="App">
       <Navbar bg="dark" variant="dark" className="justify-content-between">
-        <Navbar.Brand  as= {Link}to="/" id = "home">AniAni</Navbar.Brand>
+        <Navbar.Brand  as= {Link}to="/" className="twice" style={{fontSize: 25}}>AniAni</Navbar.Brand>
         <Nav >
           {/* <Nav.Link href="#home">Home</Nav.Link>
           <Nav.Link href="#features">Features</Nav.Link>
           <Nav.Link href="#pricing">Pricing</Nav.Link> */}
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-info">Search</Button>
+        <Form inline onSubmit = {handleSubmit}>
+          <FormControl type="text" placeholder="Search" className="mr-sm-2"
+           onChange= {handleChange} 
+           value={form.search}
+           name="search"
+            />
+          <Button type="submit" variant="outline-info">Search</Button>
         </Form>
         </Nav>
         {user ? (
@@ -76,6 +99,12 @@ function App() {
         </Route>
         <Route path="/register">
           <Register/>
+        </Route>
+        <Route path= "/anime/:id">
+          <AnimeSingle/>
+        </Route>
+        <Route path= "/search/:title">
+          <ResultsAnime/>
         </Route>
       </Switch>
       )}
