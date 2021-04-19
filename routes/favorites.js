@@ -2,12 +2,13 @@ var express = require('express');
 const checkAuth = require('../auth/checkAuth');
 var router = express.Router();
 const models = require('../models')
-router.get('/',checkAuth, async function  (req, res) {
+router.get('/:id',checkAuth, async function  (req, res) {
+    const {id} = req.params
     const favorites = await models.Favorite.findAll({
-        include: [{
-            model: models.User, 
-            attributes: ['username', "id"]
-        }]
+        where:{
+            UserId: id
+        }
+      
     })
 
     res.json(favorites)
@@ -27,10 +28,15 @@ router.post('/',checkAuth, async(req,res) => {
     res.status(201).json(favorite)
 })
 
-// router.delete('/',checkAuth, async(req,res) => {
-//     models.Favorite.remove()
+router.delete('/:favsId',checkAuth, async(req,res) => {
+    const favorite = await models.Favorite.destroy({
+        where : {
+            id: req.params.favsId
+        }
+    })
+    res.status(201).json(favorite)
 
 
-// })
+})
 
 module.exports = router;

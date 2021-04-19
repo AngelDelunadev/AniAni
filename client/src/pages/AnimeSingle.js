@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Badge, Col, Container, Jumbotron, Row, Table, Button } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 
 export default function AnimeSingle(props) {
@@ -11,12 +12,23 @@ export default function AnimeSingle(props) {
         genres: [],
         debut: "No debut date found",
     })
+    const user = useSelector((state) => state.user);
+    const [favorites, setFavorites] = useState([])
+    const [results, setResults] = useState([])
+
+
     const fetchAnime = () => {
         fetch(`/api/v1/jikan/single/${id}`)
             .then(res => res.json())
             .then((data) => {
                 setAnime(data)
-
+                fetch(`/api/v1/favorites/${user.id}`)
+                    .then(res => res.json())
+                    .then(response => {
+                        setFavorites(response)
+                        const filter = response.filter(fav => Number(fav.malId) === data.mal_id)
+                        setResults(filter)
+                    })
                 let infoStatus = "info"
                 switch (data.status) {
                     case "Finished Airing":
@@ -55,6 +67,7 @@ export default function AnimeSingle(props) {
                     status: infoStatus,
                     genres: data.genres,
                     debut: data.aired.string,
+                    mal_id: data.mal_id
                 })
             })
 
@@ -64,7 +77,7 @@ export default function AnimeSingle(props) {
         fetch('/api/v1/favorites', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 malId: anime.mal_id,
@@ -73,13 +86,19 @@ export default function AnimeSingle(props) {
                 type: anime.type,
                 aired: info.debut,
             }),
-          })
+        })
     }
 
-    // const removeFav = () => {
-
-    // }
-
+        const removeFavorite = () => {
+            fetch(`/api/v1/favorites/${results[0].id}`, {
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then(data => {
+                    fetchAnime()
+                })
+        }
+    
 
 
 
@@ -101,7 +120,15 @@ export default function AnimeSingle(props) {
                                 <img src={anime.image_url} alt=""></img>
                             </Col >
                             <Col sm={12}>
-                                <Button className="mt-4 " size="lg" variant="outline-primary" onClick= {handleClick}>Favorite</Button>
+                                {
+                                    results.length
+                                        ?
+                                        (<Button className="mt-4 " size="lg" variant="outline-danger" onClick={removeFavorite}>Remove</Button>
+                                        ) : (
+
+                                            <Button className="mt-4 " size="lg" variant="outline-primary" onClick={handleClick}>Favorite  </Button>
+                                        )
+                                }
                             </Col>
                         </Row>
                     </Col>
@@ -155,14 +182,14 @@ export default function AnimeSingle(props) {
                 </Row>
                 <Row>
                     <Col className="mb-5 " >
-                        <hr className= "line"/>
+                        <hr className="line" />
                         <h2 className="twice">Trailer</h2>
-                        <iframe src= {anime.trailer_url}
-                        title="Trailer"
-                        width="420" height="315"
-                            
-                            />
-                        
+                        <iframe src={anime.trailer_url}
+                            title="Trailer"
+                            width="420" height="315"
+
+                        />
+
                     </Col>
                 </Row>
             </Container>

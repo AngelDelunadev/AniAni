@@ -14,12 +14,14 @@ export default function Profile() {
     }, [])
 
     const fetchFavorites = () => {
-        fetch('/api/v1/favorites')
+        fetch(`/api/v1/favorites/${user.id}`)
             .then(res => res.json())
             .then(data => {
                 setFavorites(data)
             })
     }
+
+   
 
     return (
         <Container className="">
@@ -27,7 +29,7 @@ export default function Profile() {
             <div>
                 <Row >
                     <Col className="mt-3" sm={12} md={5} xs={12}>
-                        <Jumbotron className="aniJumbo">
+                        <Jumbotron className="aniJumbo ">
                                 <h2 className="twice ">{user.username.toUpperCase()}</h2>
                                 <Col sm={12}>
                                     <img src={profile} alt="" id="profileImg"></img>
@@ -46,7 +48,7 @@ export default function Profile() {
                                     favorites.map(favs => {
                                         return (
                                             <Col lg={4} md={6} sm={6} >
-                                                <AnimeCard anime={favs} />
+                                                <AnimeCard anime={favs} fetchFavorites={fetchFavorites} />
                                             </Col>
                                         )
                                     })
