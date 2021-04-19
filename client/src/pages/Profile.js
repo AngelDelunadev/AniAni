@@ -27,7 +27,7 @@ export default function Profile() {
             <div>
                 <Row >
                     <Col className="mt-3" sm={12} md={5} xs={12}>
-                        <Jumbotron className="aniJumbo" style={{ height: '45vh' }}>
+                        <Jumbotron className="aniJumbo">
                                 <h2 className="twice ">{user.username.toUpperCase()}</h2>
                                 <Col sm={12}>
                                     <img src={profile} alt="" id="profileImg"></img>
