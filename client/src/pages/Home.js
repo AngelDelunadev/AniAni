@@ -1,5 +1,4 @@
 import Slider from '../components/Slider'
-// import AnimeCard from '../components/AnimeCard'
 
 export default function Home(props) {
     

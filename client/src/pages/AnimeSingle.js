@@ -9,7 +9,7 @@ export default function AnimeSingle(props) {
         status: "Airing",
         score: '90',
         genres: [],
-        debut: "No debut date found"
+        debut: "No debut date found",
     })
     const fetchAnime = () => {
         fetch(`/api/v1/jikan/single/${id}`)
@@ -54,11 +54,31 @@ export default function AnimeSingle(props) {
                     score: infoScore,
                     status: infoStatus,
                     genres: data.genres,
-                    debut: data.aired.string
+                    debut: data.aired.string,
                 })
             })
 
     }
+
+    const handleClick = (e) => {
+        fetch('/api/v1/favorites', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                malId: anime.mal_id,
+                title: anime.title,
+                imageUrl: anime.image_url,
+                type: anime.type,
+                aired: info.debut,
+            }),
+          })
+    }
+
+    // const removeFav = () => {
+
+    // }
 
 
 
@@ -81,7 +101,7 @@ export default function AnimeSingle(props) {
                                 <img src={anime.image_url} alt=""></img>
                             </Col >
                             <Col sm={12}>
-                                <Button className="mt-4 " size="lg" variant="outline-primary">Favorite</Button>
+                                <Button className="mt-4 " size="lg" variant="outline-primary" onClick= {handleClick}>Favorite</Button>
                             </Col>
                         </Row>
                     </Col>

@@ -46,14 +46,14 @@ export default function Login() {
     return (
         <div>
             <Container className="mt-5">
-            <Jumbotron fluid style= {{backgroundColor: "lightblue"}} >
+            <Jumbotron  fluid className="aniJumbo" >
                 <Form onSubmit= {handleSubmit}>
                     <Row>
                         <Col></Col>
                         <Col xs={6}>
-                            <h1>Login</h1>
+                            <h1 className="twice">Login</h1>
                             <Form.Group >
-                                <Form.Label>Username</Form.Label>
+                                <Form.Label >Username</Form.Label>
                                 <Form.Control type="text" placeholder="Enter Username" 
                                 onChange={handleChange}
                                  value= {form.username} 
