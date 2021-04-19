@@ -87,6 +87,7 @@ export default function AnimeSingle(props) {
                 aired: info.debut,
             }),
         })
+        fetchAnime()
     }
 
         const removeFavorite = () => {
